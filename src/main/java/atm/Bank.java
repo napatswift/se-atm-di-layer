@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
@@ -12,17 +13,15 @@ import java.util.Map;
 @Component
 public class Bank {
 
+   @Value("${bankName}")
    private String name;
    private Map<Integer,Customer> customers;
+
+   @Autowired
    private DataSource dataSource;
 
-   /**
-    * Constructs a bank with no customers.
-    */
-   @Autowired
-   public Bank(@Value("${bankName}")String name, DataSource dataSource) {
-      this.name = name;
-      this.dataSource = dataSource;
+   @PostConstruct
+   public void initCustomerData() {
       this.customers = dataSource.readCustomers();
    }
 

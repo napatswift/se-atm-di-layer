@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ATM {
+	@Autowired
 	private Bank bank;
 	private Customer loginCustomer;
 
 	/**
 	 * Constructs an ATM for a bank.
 	 */
-	@Autowired
 	public ATM(Bank bank) {
 		this.bank = bank;
 		this.loginCustomer = null;
